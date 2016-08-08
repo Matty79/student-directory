@@ -23,16 +23,41 @@ def print_header
 end
 
 def print(students)
-  students.each_with_index do |student, index|
-    puts "#{index+1}. #{student[:name]} (#{student[:cohort]} cohort)"
+  count = 0
+  while students.length >= count+1
+    puts "#{students[count][:name]} (#{students[count][:cohort]} cohort)"
+    count+=1
   end
 end
 
 def print_footer(students)
   puts "Overall, we have #{students.count} great students"
 end
+
+def specific_letter(students)
+ puts "What's the first letter of the names you want to see?"
+ letter = gets.chomp
+ students.each.with_index do |student, index|
+   if student[:name][0] == letter
+     puts "#{index+1}.#{student[:name]} (#{student[:cohort]} cohort)"
+   end
+ end
+end
+
+def short_names(students)
+ puts "List of names shorter than 12 characters"
+ students.each.with_index do |student, index|
+   if student[:name].length < 12
+     puts "#{index+1}.#{student[:name]} (#{student[:cohort]} cohort)"
+   end
+ end
+end
+
+
 #nothing happens until we call the methods
 students = input_students
 print_header
 print(students)
 print_footer(students)
+specific_letter(students)
+short_names(students)
