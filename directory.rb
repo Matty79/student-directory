@@ -38,8 +38,11 @@ end
     # get another name from the user
     name = gets.chomp
   end
+  # convert cohort to symbol
+  cohort.to_sym
   # return the array of students
   students
+
 end
 
 def print_header
@@ -83,4 +86,3 @@ students = input_students
 print_header
 print(students)
 print_footer(students)
-puts student_sort(students)
