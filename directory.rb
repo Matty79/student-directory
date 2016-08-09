@@ -4,8 +4,8 @@ def input_students
   # create an empty array
   def_cohort = :august
   students = []
-  #get the first name
-  name = gets.chomp
+  #get the first name and string alternative to .chomp
+  name = gets.delete("\n")
   #spellcheck by tommy williams
   puts "Is #{name} spelt correctly? y/n"
 spell = gets.chomp.downcase
