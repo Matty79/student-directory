@@ -34,14 +34,13 @@ end
 def print(students)
   count = 0
   while students.length >= count+1
-    puts "#{students[count][:name]} (#{students[count][:cohort]} cohort)
-    likes #{students[count][:hobby]} nationality is #{students[count][:nationality]}".center(90)
+    puts "#{students[count][:name]} (#{students[count][:cohort]} cohort) likes #{students[count][:hobby]} nationality is #{students[count][:nationality]}".center(50)
     count+=1
   end
 end
 
 def print_footer(students)
-  puts "Overall, we have #{students.count} great students"
+  puts "Overall, we have #{students.count} great students".center(50)
 end
 
 def specific_letter(students)
