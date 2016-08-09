@@ -5,11 +5,20 @@ def input_students
   students = []
   #get the first name
   name = gets.chomp
+
+
+
   #while the name is not empty, repeat this code
   while !name.empty? do
     # add the student hash to the array
-    students << {name: name, cohort: :november}
+    puts 'hobby?'
+    hobby = gets.chomp
+    puts 'nationality?'
+    nationality = gets.chomp
+    students << {name: name, cohort: :november, hobby: hobby, nationality: nationality}
     puts "Now we have #{students.count} students"
+
+
     # get another name from the user
     name = gets.chomp
   end
@@ -25,7 +34,8 @@ end
 def print(students)
   count = 0
   while students.length >= count+1
-    puts "#{students[count][:name]} (#{students[count][:cohort]} cohort)"
+    puts "#{students[count][:name]} (#{students[count][:cohort]} cohort)
+    likes #{students[count][:hobby]} nationality is #{students[count][:nationality]}".center(90)
     count+=1
   end
 end
@@ -52,7 +62,6 @@ def short_names(students)
    end
  end
 end
-
 
 #nothing happens until we call the methods
 students = input_students
