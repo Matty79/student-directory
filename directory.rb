@@ -2,12 +2,27 @@ def input_students
   puts "Please enter the names of the students"
   puts "To finish, just hit return twice"
   # create an empty array
+  def_cohort = :august
   students = []
   #get the first name
   name = gets.chomp
-
-
-
+  #spellcheck stolen from tommy williams
+  puts "Is #{name} spelt correctly? y/n"
+spell = gets.chomp.downcase
+until spell == "n" || spell == "y"
+  puts "You didn't enter 'y' or 'n', please re-enter:"
+  spell = gets.chomp.downcase
+end
+while spell == "n"
+  puts "Please re-enter the name spelt correctly:"
+  name = gets.chomp
+  puts "Is #{name} spelt correctly? y/n"
+  spell = gets.chomp.downcase
+until spell == "n" || spell == "y"
+  puts "You didn't enter 'y' or 'n', please re-enter:"
+  spell = gets.chomp.downcase
+  end
+end
   #while the name is not empty, repeat this code
   while !name.empty? do
     # add the student hash to the array
@@ -15,10 +30,11 @@ def input_students
     hobby = gets.chomp
     puts 'nationality?'
     nationality = gets.chomp
-    students << {name: name, cohort: :november, hobby: hobby, nationality: nationality}
+    puts "cohort?"
+    cohort = gets.chomp
+    cohort == "" ? cohort = "august" : cohort
+    students << {name: name, cohort: cohort, hobby: hobby, nationality: nationality}
     puts "Now we have #{students.count} students"
-
-
     # get another name from the user
     name = gets.chomp
   end
@@ -27,8 +43,8 @@ def input_students
 end
 
 def print_header
-  puts "The students of Villains Academy"
-  puts "-------------"
+  puts "The students of Villains Academy".center(50)
+  puts "-------------".center(50)
 end
 
 def print(students)
@@ -67,5 +83,4 @@ students = input_students
 print_header
 print(students)
 print_footer(students)
-specific_letter(students)
-short_names(students)
+puts student_sort(students)
