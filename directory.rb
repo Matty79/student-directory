@@ -6,7 +6,7 @@ def input_students
   students = []
   #get the first name
   name = gets.chomp
-  #spellcheck stolen from tommy williams
+  #spellcheck by tommy williams
   puts "Is #{name} spelt correctly? y/n"
 spell = gets.chomp.downcase
 until spell == "n" || spell == "y"
@@ -58,6 +58,19 @@ def print(students)
   end
 end
 
+#code by malimichael slightly refactored
+def print_by_cohort(students)
+  cohort_sorted = students.group_by {|e| e[:cohort]}
+  cohort_sorted.each do |k,v|
+    puts '-'*50
+    puts "#{k}: ".center(50) + " "
+    v.each do |student|
+      puts "#{student[:name]}" + " "
+      puts ''
+    end
+  end
+end
+
 def print_footer(students)
   puts "Overall, we have #{students.count} great students".center(50)
 end
@@ -86,3 +99,4 @@ students = input_students
 print_header
 print(students)
 print_footer(students)
+print_by_cohort(students)
