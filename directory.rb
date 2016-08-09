@@ -34,7 +34,12 @@ end
     cohort = gets.chomp
     cohort == "" ? cohort = "august" : cohort
     students << {name: name, cohort: cohort, hobby: hobby, nationality: nationality}
-    puts "Now we have #{students.count} students"
+    if students.count == 1
+      puts "Now we have #{students.count} student."
+    else
+      puts "Now we have #{students.count} students."
+    end
+
     # get another name from the user
     name = gets.chomp
   end
