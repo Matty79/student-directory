@@ -5,23 +5,6 @@ def input_students
   students = []
   #get the first name and string alternative to .chomp
   name = gets.delete("\n")
-  #spellcheck by tommy williams
-  puts "Is #{name} spelt correctly? y/n"
-spell = gets.chomp.downcase
-until spell == "n" || spell == "y"
-  puts "You didn't enter 'y' or 'n', please re-enter:"
-  spell = gets.chomp.downcase
-end
-while spell == "n"
-  puts "Please re-enter the name spelt correctly:"
-  name = gets.chomp
-  puts "Is #{name} spelt correctly? y/n"
-  spell = gets.chomp.downcase
-until spell == "n" || spell == "y"
-  puts "You didn't enter 'y' or 'n', please re-enter:"
-  spell = gets.chomp.downcase
-  end
-end
   #while the name is not empty, repeat this code
   while !name.empty? do
     # add the student hash to the array
@@ -45,7 +28,6 @@ end
   end
   # return the array of students
   students
-
 end
 
 def print_header
@@ -97,13 +79,36 @@ def short_names(students)
  end
 end
 
+def interactive_menu
+  students = []
+  loop do
+    # 1. print the menu and ask the user what to do
+    puts "1. Input the students"
+    puts "2. Show the students"
+    puts "9. Exit"
+# 9 because we'll be adding more items
+    # 2. read the input and save it into a variable
+    selection = gets.chomp
+    # 3. do what the user has asked
+    case selection
+    when "1"
+      #input the students
+      students = input_students
+    when "2"
+      # show the students
+      print_header
+      print(students)
+      print_footer(students)
+    when "9"
+      exit # this will cause the program to terminate
+    else
+      puts "I don't know what you meant, try again"
+    end
+  end
+end
+
 #nothing happens until we call the methods
-students = input_students
+interactive_menu
 if students.empty?
 abort("You haven't entered any students. Program will now quit")
-else
-print_header
-print(students)
-print_footer(students)
-print_by_cohort(students)
 end
