@@ -2,7 +2,6 @@ def input_students
   puts "Please enter the names of the students"
   puts "To finish, just hit return twice"
   # create an empty array
-  def_cohort = :august
   students = []
   #get the first name and string alternative to .chomp
   name = gets.delete("\n")
@@ -33,6 +32,7 @@ end
     puts "cohort?"
     cohort = gets.chomp
     cohort == "" ? cohort = "august" : cohort
+    cohort.to_sym
     students << {name: name, cohort: cohort, hobby: hobby, nationality: nationality}
     if students.count == 1
       puts "Now we have #{students.count} student."
@@ -43,8 +43,6 @@ end
     # get another name from the user
     name = gets.chomp
   end
-  # convert cohort to symbol
-  cohort.to_sym
   # return the array of students
   students
 
@@ -101,7 +99,11 @@ end
 
 #nothing happens until we call the methods
 students = input_students
+if students.empty?
+abort("You haven't entered any students. Program will now quit")
+else
 print_header
 print(students)
 print_footer(students)
 print_by_cohort(students)
+end
