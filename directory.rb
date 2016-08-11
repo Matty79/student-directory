@@ -119,6 +119,7 @@ def save_students
     file.puts csv_line
   end
   file.close
+  puts "Students have been saved to students.csv"
 end
 
 def load_students(filename = "students.csv")
@@ -128,6 +129,7 @@ def load_students(filename = "students.csv")
   input_into_array(name, cohort)
   end
   file.close
+  puts "Students have been loaded from " + filename
 end
 
 def try_load_students(filename = "students.csv")
