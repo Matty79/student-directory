@@ -4,12 +4,12 @@ def input_students
   puts "Please enter the names of the students"
   puts "To finish, just hit return twice"
   #get the first name and string alternative to .chomp
-  name = gets.delete("\n")
+  name = STDIN.gets.delete("\n")
   #while the name is not empty, repeat this code
   while !name.empty? do
     # add the student hash to the array
     puts "cohort?"
-    cohort = gets.chomp
+    cohort = STDIN.gets.chomp
     cohort == "" ? cohort = "august" : cohort
     @students << {name: name, cohort: cohort.to_sym}
     if @students.count == 1
@@ -18,7 +18,7 @@ def input_students
       puts "Now we have #{@students.count} students."
     end
     # get another name from the user
-    name = gets.chomp
+    name = STDIN.gets.chomp
   end
   # return the array of students
   @students
@@ -56,7 +56,7 @@ end
 
 def specific_letter
  puts "What's the first letter of the names you want to see?"
- letter = gets.chomp
+ letter = STDIN.gets.chomp
  @students.each.with_index do |student, index|
    if student[:name][0] == letter
      puts "#{index+1}.#{student[:name]} (#{student[:cohort]} cohort)"
@@ -76,7 +76,7 @@ end
 def interactive_menu
   loop do
     print_menu
-    process(gets.chomp)
+    process(STDIN.gets.chomp)
   end
 end
 
@@ -121,8 +121,8 @@ def save_students
   file.close
 end
 
-def load_students
-  file = File.open("students.csv", "r")
+def load_students(filename = "students.csv")
+  file = File.open(filename, "r")
   file.readlines.each do |line|
   name, cohort = line.chomp.split(',')
     @students << {name: name, cohort: cohort.to_sym}
@@ -130,6 +130,19 @@ def load_students
   file.close
 end
 
+def try_load_students
+  filename = ARGV.first # first argument from the command line
+  return if filename.nil? # get out of the method if it isn't given
+  if File.exists?(filename) # if it exists
+    load_students(filename)
+     puts "Loaded #{@students.count} from #{filename}"
+  else # if it doesn't exist
+    puts "Sorry, #{filename} doesn't exist."
+    exit # quit the program
+  end
+end
+
+try_load_students
 interactive_menu
 if @students.empty?
 abort("You haven't entered any students. Program will now quit")
