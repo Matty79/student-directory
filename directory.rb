@@ -114,7 +114,7 @@ end
 
 def save_students(filename = "students.csv")
   if filename.empty? ; filename = "students.csv" end
-  CSV.open(filename, "wb") do |csv|
+  CSV.open(filename, "w") do |csv|
   @students.each do |student|
     csv << [student[:name], student[:cohort]]
   end
