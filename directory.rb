@@ -11,7 +11,7 @@ def input_students
     puts "cohort?"
     cohort = STDIN.gets.chomp
     cohort == "" ? cohort = "august" : cohort
-    @students << {name: name, cohort: cohort.to_sym}
+    input_into_array(name, cohort)
     if @students.count == 1
       puts "Now we have #{@students.count} student."
     else
@@ -125,7 +125,7 @@ def load_students(filename = "students.csv")
   file = File.open(filename, "r")
   file.readlines.each do |line|
   name, cohort = line.chomp.split(',')
-    @students << {name: name, cohort: cohort.to_sym}
+  input_into_array(name, cohort)
   end
   file.close
 end
@@ -140,6 +140,10 @@ def try_load_students
     puts "Sorry, #{filename} doesn't exist."
     exit # quit the program
   end
+end
+
+def input_into_array(name, cohort)
+  @students << {name: name, cohort: cohort.to_sym}
 end
 
 try_load_students
