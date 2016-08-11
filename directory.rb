@@ -1,3 +1,4 @@
+require 'CSV'
 @students = []
 
 def input_students
@@ -18,6 +19,7 @@ def input_students
       puts "Now we have #{@students.count} students."
     end
     # get another name from the user
+    puts "Please enter another name or hit return to go back to the menu"
     name = STDIN.gets.chomp
   end
   # return the array of students
@@ -111,23 +113,21 @@ def show_students
 end
 
 def save_students(filename = "students.csv")
-  file = File.open(filename, "w") do |file|
+  if filename.empty? ; filename = "students.csv" end
+  CSV.open(filename, "wb") do |csv|
   @students.each do |student|
-    student_data = [student[:name], student[:cohort]]
-    csv_line = student_data.join(",")
-    file.puts csv_line
+    csv << [student[:name], student[:cohort]]
   end
 end
   puts "Students have been saved to #{filename}"
 end
 
 def load_students(filename = "students.csv")
-  file = File.open(filename, "r") do |file|
-  file.readlines.each do |line|
-  name, cohort = line.chomp.split(',')
+  if filename.empty? ; filename = "students.csv" end
+  CSV.foreach(filename, "r") do |row|
+  name, cohort = row
   input_into_array(name, cohort)
   end
-end
   puts "Students have been loaded from #{filename}"
 end
 
