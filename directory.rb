@@ -83,23 +83,22 @@ end
 def print_menu
   puts "1. Input the students"
   puts "2. Show the students"
-  puts "3. Save the list to students.csv"
-  puts "4. Load the list from students.csv"
+  puts "3. Save the list as..."
+  puts "4. Load the list"
   puts "9. Exit" # 9 because we'll be adding more items
 end
 
 def process(selection)
   case selection
-  when "1"
-    @students = input_students
-  when "2"
-    show_students
+  when "1" then @students = input_students
+  when "2" then show_students
   when "3"
-    save_students
-  when "4"
-    load_students
-  when "9"
-    exit
+    puts "Type filename to save as"
+    save_students(STDIN.gets.chomp)
+  when "4" then
+    puts "Type filename to load"
+    load_students(STDIN.gets.chomp)
+  when "9" then exit
   else
   puts "I don't know what you meant, try again"
   end
@@ -111,15 +110,15 @@ def show_students
   print_footer
 end
 
-def save_students
-  file = File.open("students.csv", "w")
+def save_students(filename = "students.csv")
+  file = File.open(filename, "w")
   @students.each do |student|
     student_data = [student[:name], student[:cohort]]
     csv_line = student_data.join(",")
     file.puts csv_line
   end
   file.close
-  puts "Students have been saved to students.csv"
+  puts "Students have been saved to #{filename}"
 end
 
 def load_students(filename = "students.csv")
@@ -129,7 +128,7 @@ def load_students(filename = "students.csv")
   input_into_array(name, cohort)
   end
   file.close
-  puts "Students have been loaded from " + filename
+  puts "Students have been loaded from #{filename}"
 end
 
 def try_load_students(filename = "students.csv")
